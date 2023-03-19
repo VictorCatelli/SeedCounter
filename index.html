@@ -74,4 +74,8 @@
 
       const sumOfSquares = sampleInputs.reduce((sum, sample) => sum + Math.pow(sample - averageSampleWeight, 2), 0);
       const standardDeviation = Math.sqrt(sumOfSquares / sampleInputs.length);
-      const sdPercentage = (standardDeviation / averageSampleWeight)
+      const sdPercentage = (standardDeviation / averageSampleWeight) * 100;
+
+      const bagWeight = (bagType * averageSampleWeight) / 1000;
+
+      document.getElementById('result').innerText = bagWeight.toFixed(2)
