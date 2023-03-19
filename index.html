@@ -51,15 +51,16 @@
     <option value="5000000">BigBags de 5 milhões de sementes</option>
   </select>
 
+  <button id="calculateBtn">Calcular</button>
+
   <h2>Resultado</h2>
   <p>O peso do saco é: <span id="result">0 kg</span></p>
   <p>O desvio padrão é: <span id="sd">0%</span></p>
 
   <script>
-    const bagTypeSelect = document.getElementById('bagType');
-    bagTypeSelect.addEventListener('change', calculateBagWeight);
+    document.getElementById('calculateBtn').addEventListener('click', calculateBagWeight);
 
-    function calculateBagWeight(event) {
+    function calculateBagWeight() {
       const sampleInputs = [
         parseFloat(document.getElementById('sample1').value),
         parseFloat(document.getElementById('sample2').value),
@@ -68,17 +69,13 @@
         parseFloat(document.getElementById('sample5').value),
       ];
 
-      const bagType = parseInt(event.target.value);
+      const bagType = parseInt(document.getElementById('bagType').value);
       const averageSampleWeight = sampleInputs.reduce((sum, sample) => sum + sample, 0) / sampleInputs.length;
 
       const sumOfSquares = sampleInputs.reduce((sum, sample) => sum + Math.pow(sample - averageSampleWeight, 2), 0);
-      const standardDeviation = Math.sqrt(sumOfSquares / sampleInputs.length);
+      const standardDeviation = Math.sqrt(sumOfSquares / (sampleInputs.length - 1));
       const sdPercentage = (standardDeviation / averageSampleWeight) * 100;
 
       const bagWeight = (bagType * averageSampleWeight) / 1000;
 
-      document.getElementById('result').innerText = bagWeight.toFixed(2) + " kg";
-    }
-  </script>
-</body>
-</html>
+      document.getElementById('result').innerText = bagWeight
