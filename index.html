@@ -59,7 +59,7 @@
     const bagTypeSelect = document.getElementById('bagType');
     bagTypeSelect.addEventListener('change', calculateBagWeight);
 
-    function calculateBagWeight() {
+    function calculateBagWeight(event) {
       const sampleInputs = [
         parseFloat(document.getElementById('sample1').value),
         parseFloat(document.getElementById('sample2').value),
@@ -68,7 +68,7 @@
         parseFloat(document.getElementById('sample5').value),
       ];
 
-      const bagType = parseInt(document.getElementById('bagType').value);
+      const bagType = parseInt(event.target.value);
       const averageSampleWeight = sampleInputs.reduce((sum, sample) => sum + sample, 0) / sampleInputs.length;
 
       const sumOfSquares = sampleInputs.reduce((sum, sample) => sum + Math.pow(sample - averageSampleWeight, 2), 0);
@@ -77,4 +77,8 @@
 
       const bagWeight = (bagType * averageSampleWeight) / 1000;
 
-      document.getElementById('result
+      document.getElementById('result').innerText = bagWeight.toFixed(2) + " kg";
+    }
+  </script>
+</body>
+</html>
