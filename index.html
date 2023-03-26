@@ -64,20 +64,24 @@
     calcularButton.addEventListener('click', calculateBagWeight);
 
     function calculateBagWeight() {
-      const sampleInputs = [
-        parseFloat(document.getElementById('sample1').value),
-        parseFloat(document.getElementById('sample2').value),
-        parseFloat(document.getElementById('sample3').value),
-        parseFloat(document.getElementById('sample4').value),
-        parseFloat(document.getElementById('sample5').value),
-      ];
+  const sampleInputs = [
+    parseFloat(document.getElementById('sample1').value),
+    parseFloat(document.getElementById('sample2').value),
+    parseFloat(document.getElementById('sample3').value),
+    parseFloat(document.getElementById('sample4').value),
+    parseFloat(document.getElementById('sample5').value),
+  ];
 
-      const bagType = parseInt(bagTypeSelect.value);
-      const averageSampleWeight = sampleInputs.reduce((sum, sample) => sum + sample, 0) / sampleInputs.length;
+  const bagType = parseInt(bagTypeSelect.value);
+  const averageSampleWeight = sampleInputs.reduce((sum, sample) => sum + sample, 0) / sampleInputs.length;
 
-      const sumOfSquares = sampleInputs.reduce((sum, sample) => sum + Math.pow(sample - averageSampleWeight, 2), 0);
-      const standardDeviation = Math.sqrt(sumOfSquares / sampleInputs.length);
-      const sdPercentage = (standardDeviation / averageSampleWeight);
+  const sumOfSquares = sampleInputs.reduce((sum, sample) => sum + Math.pow(sample - averageSampleWeight, 2), 0);
+  const standardDeviation = Math.sqrt(sumOfSquares / sampleInputs.length);
+  const sdPercentage = (standardDeviation / averageSampleWeight) * 100;
 
-      const bagWeight = bagType / averageSampleWeight;
-      const bagWeightKg = bagWeight /
+  const bagWeight = bagType / averageSampleWeight;
+  const bagWeightKg = bagWeight / 1000;
+
+  document.getElementById('result').textContent = `${bagWeightKg.toFixed(2)} kg`;
+  document.getElementById('sd').textContent = `${sdPercentage.toFixed(2)}%`;
+}
